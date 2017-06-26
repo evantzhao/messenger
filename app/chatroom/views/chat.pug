@@ -12,12 +12,12 @@ block content
 					p Chat up your friends!
 
 				each room in rooms
-					a(href="#").list-group-item
+					a(href="/chat/" + room._id).list-group-item
 						h4.list-group-item-heading #{room.name}
 						p.list-group-item-text Last sent message
 		div.col-sm-10.mainbar
 			div.menu
-				div.name #{room ? room.name : "No room selected"} 
+				div.name #{current_room ? current_room.name : "No room selected"} 
 			ol.chat#messages
 				li.other 
 					p.msg weirdlkj
@@ -33,9 +33,11 @@ block content
 					button(type="button" data-dismiss="modal" aria-label="Close").close
 					h4.modal-title Create a chat room!
 				div.modal-body
-					p Enter a friend's user ID below, and hit enter! If this user exists, you will both be placed in a chat room.
+					p Enter a friend's user ID below, and hit enter! If this user exists, you will both be placed in a chat room. Make sure you validate the username first!
 					label Username: 
 					input(type="text" placeholder="Friend username").form-control
+					br
+					button(type="button").btn.btn-primary#verifyuser Validate
 				div.modal-footer
 					button(type="button" data-dismiss="modal").btn.btn-default Close
-					button(type="button").btn.btn-primary Create room!
+					button(type="button").btn.btn-primary.disabled Create room!

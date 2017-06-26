@@ -11,4 +11,9 @@ $(function(){
   socket.on('chat message', function(msg){
     $('#messages').append($('<li class="self">').append($('<p class="msg">').text(msg)));
   });
+
+  $("#verifyuser").click(function(){
+    var query = $("#verifyuser").val();
+    
+  });
 });
