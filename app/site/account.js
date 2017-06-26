@@ -1,7 +1,7 @@
 module.exports.account = function() {
 	var mongoose = require('mongoose');
 	var Schema = mongoose.Schema;
-	// var passportLocalMongoose = require('passport-local-mongoose');
+	var passportLocalMongoose = require('passport-local-mongoose');
 
 	var Account = new Schema({
 	    username: String,
@@ -12,7 +12,7 @@ module.exports.account = function() {
 		return (this.password === password);
 	};
 
-	// Account.plugin(passportLocalMongoose);
+	Account.plugin(passportLocalMongoose);
 
 	return mongoose.model('Account', Account);	
 }

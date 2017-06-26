@@ -4,14 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var app = express();
 
 var passport = require('../app/auth.js').auth();
-// Initialize Passport and restore authentication state, if any, from the
-// session.
-app.use(passport.initialize());
-app.use(passport.session());
 
 var index = require('./site/router.js');
 var chat = require('./chatroom/router.js');
@@ -26,6 +23,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  resave: false,
+  saveUninitialized: true,
+  secret: 'messenger-shhh'
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, './chatroom/public')));
 app.use(express.static(path.join(__dirname, './site/public')));
 

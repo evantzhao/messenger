@@ -24,7 +24,6 @@ module.exports.auth = function() {
 	passport.use(new Strategy(
 	  function(username, password, done) {
 	    Account.findOne({ "username": username }, function(err, user) {
-
 	    	if (err) { return done(err); }
 	    	if (!user) { return done(null, false, { message: "Incorrect username."} ); }
 	    	if (!user.validPassword(password)) { return done(null, false, { message: "Incorrect password." }); }
@@ -37,8 +36,8 @@ module.exports.auth = function() {
 	});
 
 	passport.deserializeUser(function(id, done) {
-		User.findById(id, function(err, user) {
-			done(err.user);
+		Account.findById(id, function(err, user) {
+			done(err, user);
 		});
 	});
 

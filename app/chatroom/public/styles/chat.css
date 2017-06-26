@@ -4,7 +4,6 @@
 
 .chat-header {
 	text-align: center;
-	padding-left: 8%;
 }
 
 .room {
@@ -14,6 +13,7 @@
 .sidebar {
 	border-right: thin solid black;
 	padding-right: 0;
+    padding-left: 0;
 	height: 100vh;
 }
 
@@ -43,7 +43,7 @@ a{
     position: fixed;
     top: 0px;
     right: 0px;
-    width: 84.5%;
+    width: 83.4%;
     height: 50px;
     background: rgba(82,179,217,0.9);
     z-index: 100;
@@ -127,7 +127,7 @@ input.textarea {
     /*left: 0px;*/
     margin-right: 0;
     right: 0px;
-    width: 85.3%;
+    width: 83.4%;
     height: 45px;
     z-index: 99;
     background: #fafafa;
@@ -137,20 +137,4 @@ input.textarea {
     padding-right: 55px;
     color: #666;
     font-weight: 1.3em;
-}
-.emojis {
-    position: fixed;
-    display: block;
-    bottom: 8px;
-    left: 7px;
-    width: 34px;
-    height: 34px;
-    background-image: url(https://i.imgur.com/5WUpcPZ.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: 100;
-    cursor: pointer;
-}
-.emojis:active {
-    opacity: 0.9;
 }
