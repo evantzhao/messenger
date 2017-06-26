@@ -1,7 +1,26 @@
 extends chatbase
 
 block content
-	ul#messages
-		form
-			input(id='m' autocomplete='off')
-			button Send
+	div.row
+		div.col-sm-2.sidebar
+			div.chat-header
+				h2 Chat Rooms
+				hr
+			ul.list-group
+				a(href="#").list-group-item
+					h4.list-group-item-heading Title
+					p.list-group-item-text Last sent message
+		div.col-sm-10.mainbar
+			div.menu
+				div.name Evan
+			ol.chat#messages
+				li.other 
+					p.msg weirdlkj
+				li.self
+					p.msg Hello! What the heck
+				li.other 
+					p.msg Hello heckers!
+				li.other 
+					p.msg Hello heckers!
+				form
+					input(id='m' autocomplete='off' type='text' placeholder='Type your message here!').textarea

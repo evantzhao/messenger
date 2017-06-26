@@ -1,7 +1,7 @@
 module.exports.auth = function() {
 	var mongoose = require('mongoose');
 
-	mongoose.connect('mongodb://localhost/local');
+	mongoose.connect('mongodb://localhost/test');
 
 	var db = mongoose.connection;
 	db.on('error', console.error.bind(console, 'connection error:'));
@@ -13,6 +13,8 @@ module.exports.auth = function() {
 	var passport = require('passport');
 	var Strategy = require('passport-local').Strategy;
 
+	var Account = require('./site/account').account();
+
 	// Configure the local strategy for use by Passport.
 	//
 	// The local strategy require a `verify` function which receives the credentials
@@ -20,16 +22,25 @@ module.exports.auth = function() {
 	// that the password is correct and then invoke `cb` with a user object, which
 	// will be set at `req.user` in route handlers after authentication.
 	passport.use(new Strategy(
-	  function(username, password, cb) {
-	  	console.log(db);
-	    db.users.findByUsername(username, function(err, user) {
-	    	console.log(username);
-	    	if (err) { return cb(err); }
-	    	if (!user) { return cb(null, false); }
-	    	if (user.password != password) { return cb(null, false); }
-	    	return cb(null, user);
+	  function(username, password, done) {
+	    Account.findOne({ "username": username }, function(err, user) {
+
+	    	if (err) { return done(err); }
+	    	if (!user) { return done(null, false, { message: "Incorrect username."} ); }
+	    	if (!user.validPassword(password)) { return done(null, false, { message: "Incorrect password." }); }
+	    	return done(null, user);
 	  });
 	}));
+
+	passport.serializeUser(function(user, done) {
+		done(null, user.id);
+	});
+
+	passport.deserializeUser(function(id, done) {
+		User.findById(id, function(err, user) {
+			done(err.user);
+		});
+	});
 
 	return passport;
 }

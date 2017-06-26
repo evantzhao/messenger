@@ -7,19 +7,12 @@
 var app = require('../app/index.js');
 var debug = require('debug')('chatroom:server');
 var http = require('http');
-var passport = require('../app/auth.js').auth();
-// require('../app/db.js');
-
-// Initialize Passport and restore authentication state, if any, from the
-// session.
-app.use(passport.initialize());
-app.use(passport.session());
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '8000');
 // Cannot use app.set. Must use http listener
 // app.set('port', port);
 
@@ -29,7 +22,7 @@ var port = normalizePort(process.env.PORT || '3000');
 var server = http.createServer(app);
 
 server.listen(port, function(){
-  console.log("Listening on port *:3000");
+  console.log("Listening on port *:8000");
 });
 
 /**

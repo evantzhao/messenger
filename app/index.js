@@ -5,10 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var app = express();
+
+var passport = require('../app/auth.js').auth();
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passport.initialize());
+app.use(passport.session());
+
 var index = require('./site/router.js');
 var chat = require('./chatroom/router.js');
-
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
