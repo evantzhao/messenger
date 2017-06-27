@@ -2,6 +2,12 @@ extends chatbase
 
 block content
 	div
+		div.container
+			if failure
+				div.alert.alert-warning.alert-dismissible(role="alert")
+					button(aria-label="close" type="button" data-dismiss="alert").close
+						span(aria-hidden="true") &times;
+					strong No user found, no chat room was created.
 		div.col-sm-2.sidebar
 			div.chat-header
 				h3 Chat Rooms
@@ -23,7 +29,7 @@ block content
 					p.msg weirdlkj
 				li.self
 					p.msg Hello! What the heck
-				form
+				form#messaging
 					input(id='m' autocomplete='off' type='text' placeholder='Type your message here!').textarea
 
 	div.modal.fade#create(tabindex= "-1" role = "dialog")
@@ -34,10 +40,11 @@ block content
 					h4.modal-title Create a chat room!
 				div.modal-body
 					p Enter a friend's user ID below, and hit enter! If this user exists, you will both be placed in a chat room. Make sure you validate the username first!
-					label Username: 
-					input(type="text" placeholder="Friend username").form-control
-					br
-					button(type="button").btn.btn-primary#verifyuser Validate
+					label Username:
+					form(method="post" action="/chat") 
+						input(type="text" name="verify" placeholder="Friend username").form-control
+						br
+						button(type="submit").btn.btn-primary Validate
 				div.modal-footer
 					button(type="button" data-dismiss="modal").btn.btn-default Close
 					button(type="button").btn.btn-primary.disabled Create room!
