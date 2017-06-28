@@ -1,0 +1,20 @@
+extends chatbase
+
+block content
+	div
+		div.menu
+			div.name Universal Chat Room | #{current}
+				form(action="/logout" method="post").no-style
+					button.btn.btn-primary(type="submit") Logout
+		ol.chat#messages
+			each item in history.reverse()
+				if current == item.author
+					li.self
+						p.msg #{item.content}
+						p.tiny.sel #{item.author}
+				else 
+					li.other
+						p.msg #{item.content}
+						p.tiny.oth #{item.author}
+			form#messaging
+				input(id='m' autocomplete='off' type='text' placeholder='Type your message here!').textarea

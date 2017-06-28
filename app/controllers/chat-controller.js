@@ -1,7 +1,8 @@
-var Room = require('./chatroom-model').room();
+var Room = require('../models/chatroom-model').room();
 var Account = require('../auth').account;
 var mongoose = require('mongoose');
 
+exports.room = Room;
 
 exports.chat_index = function(req, res, next) {
 	Room.find({doods: req.user.username}, function(err, rooms) {
@@ -38,7 +39,6 @@ exports.verify = function(req, res, next) {
 						});
 					});
 				} else {
-					// Failed to verify
 					res.render('../chatroom/views/chat', {rooms: rooms, failure: true});
 				}	
 			});

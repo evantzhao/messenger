@@ -9,10 +9,9 @@ var session = require('express-session');
 
 var app = express();
 
-var passport = require('../app/auth.js').auth();
+require('../app/auth.js').auth();
 
-var index = require('./site/router.js');
-var chat = require('./chatroom/router.js');
+var index = require('./router.js');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,15 +29,11 @@ app.use(session({
   saveUninitialized: true,
   secret: 'messenger-shhh'
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(express.static(path.join(__dirname, './chatroom/public')));
-app.use(express.static(path.join(__dirname, './site/public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/socket.io', express.static(__dirname + '/node_modules/socket.io-client/dist/'));
 	
 app.use('/', index);
-app.use('/chat', chat);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

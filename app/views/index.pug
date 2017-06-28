@@ -1,0 +1,25 @@
+extends base
+
+block content
+	.site-wrapper
+		.site-wrapper-inner
+			.cover-container
+				.masthead.clearfix
+					.inner
+						h3.masthead-brand #{title}
+						nav
+							ul.nav.masthead-nav
+								li.active
+									a(href="#") Home
+								li
+									a(href='/chat') Chat Now!
+			.inner.cover
+				h1.cover-heading Universal Chat Room
+				p.lead Head towards the chat room, punch in a username, and join a worldwide chatroom open to all conversations!
+				p.lead
+					a(href='/chat').btn.btn-lg.btn-default Chatroom
+
+			.mastfood
+				.inner
+					p Made by evan zhao
+					p mainly just to fool around with express/socketio

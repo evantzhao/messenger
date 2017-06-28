@@ -4,6 +4,9 @@
  * Module dependencies.
  */
 
+var message = require('./models/messages');
+var Message = message.msg;
+
 var app = require('../app/index.js');
 var debug = require('debug')('chatroom:server');
 var http = require('http');
@@ -33,7 +36,7 @@ server.listen(port, function(){
 server.on('error', onError);
 server.on('listening', onListening);
 
-var io = require('./socket.js').listen(server);
+var io = require('./socket.js').listen(server, Message);
 
 /**
  * Normalize a port into a number, string, or false.
