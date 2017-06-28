@@ -6,11 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
+var compression = require('compression');
+var helmet = require('helmet');
 
 var app = express();
 
 require('../app/auth.js').auth();
 
+app.use(compression());
 var index = require('./router.js');
 
 // view engine setup
@@ -29,6 +32,7 @@ app.use(session({
   saveUninitialized: true,
   secret: 'messenger-shhh'
 }));
+app.use(helmet());
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/socket.io', express.static(__dirname + '/node_modules/socket.io-client/dist/'));
@@ -50,7 +54,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('../errors/not-found');
+  res.render('./not-found');
 });
 
 module.exports = app;

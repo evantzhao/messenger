@@ -10,7 +10,4 @@ module.exports.auth = function() {
 		console.log("We're connected to the database!");
 	});
 
-	var Account = require('./models/account').account();
-
-	exports.account = Account;
 }
